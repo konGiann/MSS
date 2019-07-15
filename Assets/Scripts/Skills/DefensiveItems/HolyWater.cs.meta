@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: eafb8f14a03274a7586755dd9d578e00
+timeCreated: 1476385077
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Image: {instanceID: 0}
+  - Pref: {fileID: 1000012306099030, guid: 2e91932a56597487fa1ac52398bb14e5, type: 2}
+  - creatureScript: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

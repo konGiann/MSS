@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 73d087a30fd22466ea263af7da159e1c
+timeCreated: 1481983930
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Image: {instanceID: 0}
+  - Pref: {instanceID: 0}
+  - DestroyedEffect: {instanceID: 0}
+  - Healthbar: {instanceID: 0}
+  - Floor: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
