@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class NewSkillBar : MonoBehaviour {
@@ -92,48 +93,58 @@ public class NewSkillBar : MonoBehaviour {
 	public void PlaceItem(GameObject o)
 	{
 
-		foreach (var slot in skillSlotsArray) 
-		{
-			// If skill is drawn at mouse position, left click to spawn it at mouse position on a valid floor.
-			if(slot.defensiveItem.drawOnMouse == true && Input.GetMouseButtonDown (0) && slot.defensiveItem.NumberAvailable > 0)
-			{
-				Vector2 mousePos;
-				Vector3 targetPosition;
+        if (o != null)
+        {
+            try
+            {
+                foreach (var slot in skillSlotsArray)
+                {
+                    // If skill is drawn at mouse position, left click to spawn it at mouse position on a valid floor.
+                    if (slot.defensiveItem.drawOnMouse == true && Input.GetMouseButtonDown(0) && slot.defensiveItem.NumberAvailable > 0)
+                    {
+                        Vector2 mousePos;
+                        Vector3 targetPosition;
 
-				// Get mouse position translated to wold cords
-				mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+                        // Get mouse position translated to wold cords
+                        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-				// Set the target position with round so it will be placed on floor tile
-				targetPosition = new Vector3 (Mathf.Round (mousePos.x), Mathf.Round (mousePos.y), -4);
+                        // Set the target position with round so it will be placed on floor tile
+                        targetPosition = new Vector3(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y), -4);
 
-                // Instantiate prefab
-                DefensiveItems instaPref = (DefensiveItems)Instantiate (slot.defensiveItem, targetPosition, Quaternion.identity);
+                        // Instantiate prefab
+                        DefensiveItems instaPref = (DefensiveItems)Instantiate(slot.defensiveItem, targetPosition, Quaternion.identity);
 
-				// Play sound
-				SoundManager._instance.ItemPlaced.Play ();
+                        // Play sound
+                        SoundManager._instance.ItemPlaced.Play();
 
-                // Copy values to instance
-                instaPref.ItemDamagePerSec = slot.defensiveItem.ItemDamagePerSec;
-                instaPref.InitialBonusDamage = slot.defensiveItem.InitialBonusDamage;
+                        // Copy values to instance
+                        instaPref.ItemDamagePerSec = slot.defensiveItem.ItemDamagePerSec;
+                        instaPref.InitialBonusDamage = slot.defensiveItem.InitialBonusDamage;
 
-                instaPref.MaximumHitPoints = slot.defensiveItem.MaximumHitPoints;
-                instaPref.CurrentHitPoints = instaPref.MaximumHitPoints;
+                        instaPref.MaximumHitPoints = slot.defensiveItem.MaximumHitPoints;
+                        instaPref.CurrentHitPoints = instaPref.MaximumHitPoints;
 
-                
-                
-                // Get Rect transform so we can reset its width and height - defined by grid layout. Otherwise healthbar won't be visible
-                RectTransform rt = instaPref.GetComponent <RectTransform> ();
-				rt.sizeDelta = new Vector2 (0, 0);
 
-				// Instantly, set the INSTANTIATED object's drawOnMouse to false, else we will forever have its image drawn at cursor pos
-				instaPref.drawOnMouse = false;
 
-				// Decrease the amount avaiable of the Defensive Item that was used
-				slot.defensiveItem.NumberAvailable -= 1;
+                        // Get Rect transform so we can reset its width and height - defined by grid layout. Otherwise healthbar won't be visible
+                        RectTransform rt = instaPref.GetComponent<RectTransform>();
+                        rt.sizeDelta = new Vector2(0, 0);
 
-				// Change the floor pref tag so we cannot place any other object on top
-				o.tag = "FloorOccupied";
-			}
-		}
+                        // Instantly, set the INSTANTIATED object's drawOnMouse to false, else we will forever have its image drawn at cursor pos
+                        instaPref.drawOnMouse = false;
+
+                        // Decrease the amount avaiable of the Defensive Item that was used
+                        slot.defensiveItem.NumberAvailable -= 1;
+
+                        // Change the floor pref tag so we cannot place any other object on top
+                        o.tag = "FloorOccupied";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);                
+            }
+        }
 	}
 }

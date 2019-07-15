@@ -35,7 +35,7 @@ public class BestiaryCreatures : MonoBehaviour {
             if (GameManager._instance.player.CreatureBestiary.Find(creature => creature.Name == "Vampyr"))
             {
 				isVampyrInstantiated = true;
-                myVampyr =  Instantiate(vampyrPref, new Vector3(-60, 100, 0), Quaternion.identity) as GameObject;
+                myVampyr = Instantiate(vampyrPref, new Vector3(-60, 100, 0), Quaternion.identity).gameObject ;
 				myVampyr = GameObject.Find ("BestiaryVampyr(Clone)");
 				myVampyr.transform.SetParent (gameObject.transform, false);
 				creatures.Add (myVampyr);
@@ -49,7 +49,7 @@ public class BestiaryCreatures : MonoBehaviour {
 			if (GameManager._instance.player.CreatureBestiary.Find(creature => creature.Name == "Gargoyle"))
 			{
 				isGargoyleInstantiated = true;
-				myGargoyle =  Instantiate(gargoylePref, new Vector3(-60, 35, 0), Quaternion.identity) as GameObject;
+				myGargoyle =  Instantiate(gargoylePref, new Vector3(-60, 35, 0), Quaternion.identity).gameObject;
 				myGargoyle = GameObject.Find ("BestiaryGargoyle(Clone)");
 				myGargoyle.transform.SetParent (gameObject.transform, false);
 				creatures.Add (myGargoyle);

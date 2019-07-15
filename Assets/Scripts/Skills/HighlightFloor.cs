@@ -30,6 +30,7 @@ public class HighlightFloor : MonoBehaviour
 	void Update()
 	{
 		distance = Vector3.Distance (this.transform.position, player.transform.position);
+     
 	}
 
 	// When hovering over the floor, check if the distance of the player to the floor tile is smaller or equal
@@ -40,11 +41,10 @@ public class HighlightFloor : MonoBehaviour
 		if(Mathf.Round (distance) <= ValidFloorDistance && this.tag != "FloorOccupied")
 		{
 			sr.color = Color.green; // Change color to green for EFFECT
-			this.tag = "FloorValid"; // Change Tag
+			tag = "FloorValid"; // Change Tag
 
 			NewSkillBar._instance.PlaceItem (gameObject);
-		}
-		//Debug.Log (this.tag);
+		}		
 	}
 
 	void OnMouseExit()
@@ -52,7 +52,9 @@ public class HighlightFloor : MonoBehaviour
 		sr.color = Color.white;
 		if(this.tag != "FloorOccupied")
 			this.tag = "Floor";
-	}
+
+        Debug.Log("TAG: " + tag + "DISTANCE: " + distance);        
+    }
 
 	void OnTriggerStay2D(Collider2D item)
 	{
