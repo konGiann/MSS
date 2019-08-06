@@ -39,8 +39,8 @@ public class LevelUpScreen : MonoBehaviour {
 		}
 		else
 		{
-			GUIManager._instance.GameMessages.text = "No points to spend :(";
-			StartCoroutine (GUIManager._instance.DeleteGameMessageTextAfterSeconds (2));
+            StartCoroutine(GUIManager._instance.ShowMessage("No points to spend :(", 2));            
+			
 		}
 	}
 
@@ -53,9 +53,8 @@ public class LevelUpScreen : MonoBehaviour {
 		}
 		else
 		{
-			GUIManager._instance.GameMessages.text = "No points to spend :(";
-			StartCoroutine (GUIManager._instance.DeleteGameMessageTextAfterSeconds (2));
-		}
+            StartCoroutine(GUIManager._instance.ShowMessage("No points to spend :(", 2));
+        }
 	}
 
 }

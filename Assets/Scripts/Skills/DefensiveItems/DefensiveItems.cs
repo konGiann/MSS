@@ -121,8 +121,8 @@ public class DefensiveItems : MonoBehaviour
 
 	IEnumerator CountDownForDestruction()
 	{
-		yield return new WaitForSeconds (1);
-		DestroyObject (gameObject);
+		yield return new WaitForSeconds (1);		
+        Destroy(gameObject);
 	}
 }
 

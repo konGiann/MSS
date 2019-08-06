@@ -94,7 +94,7 @@ public class ICreature : MonoBehaviour
 				SoundManager._instance.CreatureDied.Play ();
 				GameManager._instance.player.creaturesKilled += 1;
 				died = true;
-				DestroyObject (gameObject);
+				Destroy(gameObject);
 
 
 			}

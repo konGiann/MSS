@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Threading;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UnlockSkillManager : MonoBehaviour {
 
 	public GameObject[] AllSkills;
 	public Transform Slot;
+    public GameObject instance;
 
 	public Text SkillName;
 	public Text ItemAttackValue;
@@ -35,7 +37,7 @@ public class UnlockSkillManager : MonoBehaviour {
 			{
 				
 				OpenPanel();
-				var instance = Instantiate (item, new Vector3(0,0,0), Quaternion.identity) as GameObject;
+				instance = Instantiate (item, new Vector3(0,0,0), Quaternion.identity) as GameObject;
 				instance.transform.SetParent(Slot, false);
 				skill.IsUnlocked = true; // set it to true to avoid infinite instantiation
 				SkillName.text = skill.Name;
@@ -66,10 +68,29 @@ public class UnlockSkillManager : MonoBehaviour {
 		anim.Play("NewSkillUnlockedPanelIn");
 	}
 
+    /// <summary>
+    /// Close 'New Skill Unlocked' panel, only when you drag the item into the skillbar. 
+    /// If you drag the item anywhere else, it will return to the panel, the panel will not close
+    /// and will display the apropriate message to the user.
+    /// </summary>
 	public void ClosePanel()
 	{
-		if(Slot.childCount == 0 && Input.GetMouseButtonUp(0)) // Close button will only work if the skill is dragged away from the slot
-			anim.Play("NewSkillUnlockedPanelOut");
+        if (Slot.childCount == 0 && Input.GetMouseButtonUp(0))
+        {
+            defInstance = instance.GetComponent<DefensiveItems>();
+
+            GameObject skillBar = GameObject.FindGameObjectWithTag("SkillBar");
+            GameObject itemParent = defInstance.transform.parent.gameObject;            
+
+            if (itemParent.transform.parent.gameObject == skillBar)
+                anim.Play("NewSkillUnlockedPanelOut");
+            else
+            {
+                StartCoroutine(GUIManager._instance.ShowMessage("Drag the skill first to the skillbar.", 2));
+                //GUIManager._instance.GameMessages.text = "Drag the skill first to the skillbar.";
+                //StartCoroutine(GUIManager._instance.DeleteGameMessageTextAfterSeconds(2));
+            }
+        }                                 
 	}
 
 	void ResetItemUnlockedState ()

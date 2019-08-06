@@ -32,6 +32,9 @@ public class GUIManager : MonoBehaviour {
 	private Animator animCrafting;
 	public bool isCraftingPanelActive;
 
+    // Coroutine chekers
+    public bool CoroutineIsRunning = false;
+
 	#endregion
 
 	public static GUIManager _instance = null;
@@ -66,6 +69,8 @@ public class GUIManager : MonoBehaviour {
 		// Hide AllSkills on game start
 		ShowHideAllSKills = false;
 
+        Screen.SetResolution(1920, 1080, true);
+
 	}
 
 	void Update () 
@@ -98,6 +103,8 @@ public class GUIManager : MonoBehaviour {
 		ExperiencePoints.text = "XP " + GameManager._instance.player.CurrentExperiencePoints.ToString () + "/" + GameManager._instance.player.ExperiencePointsNeeded.ToString ();
 		WaveLevel.text = "Wave: " + Mathf.Round (GameManager._instance.WaveLevel).ToString ();
 
+        Fear.color = Color.white;
+
 		// Warn the player if his fear lebel is above 70% of his total fear points
 		if (GameManager._instance.player.CurrentFear > GameManager._instance.player.MaximumFear * 0.7)
 		{
@@ -129,12 +136,31 @@ public class GUIManager : MonoBehaviour {
 
 	}
 
-	// Delete any Game Message after amount of seconds
-	public IEnumerator DeleteGameMessageTextAfterSeconds(int seconds)
-	{
-		yield return new WaitForSeconds (seconds);
-		GameMessages.text = string.Empty;
-	}
+    /// <summary>
+    /// Displays a message for a fixed amound of seconds
+    /// </summary>
+    /// <param name="message">Message to be displayed</param>
+    /// <param name="timeToStayAlive">Seconds to be displayed</param>
+    /// <returns></returns>
+	public IEnumerator ShowMessage(string message, int timeToStayAlive, Color? color = null)
+    {
+        CoroutineIsRunning = true;
+        GameObject parentMessagePanel = GameMessages.transform.parent.gameObject;
+        parentMessagePanel.SetActive(true);
+        if(color == null)
+        {
+            GameMessages.color = Color.white;
+        }
+        else
+        {
+            GameMessages.color = (Color)color;
+        }
+        GameMessages.text = message;
+        yield return new WaitForSeconds(timeToStayAlive);
+        parentMessagePanel.SetActive(false);
+        CoroutineIsRunning = false;
+        GameMessages.text = string.Empty;        
+    }
 
 	void ShowHideSkillsPanel()
 	{
@@ -202,10 +228,7 @@ public class GUIManager : MonoBehaviour {
 
 		if (GameManager._instance.currentState == GameManager.GameState.SPAWNWAVE)
 		{
-			WaveCountDown.text = Mathf.Round (GameManager._instance.waveCountDown).ToString (); 
-
-			StartCoroutine (DeleteGameMessageTextAfterSeconds (3));
-
+			WaveCountDown.text = Mathf.Round (GameManager._instance.waveCountDown).ToString (); 		
 		}
 
 		if (GameManager._instance.waveCountDown <= -0.5)
