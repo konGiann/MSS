@@ -55,12 +55,48 @@ public class PlayerStats
 	{
 		if (CurrentExperiencePoints >= ExperiencePointsNeeded)
 		{
-			PointsToSpend += 4;
+            switch (Level)
+            {
+                case 2:
+                case 3:
+                case 4:
+                    PointsToSpend += 2;
+                    break;
+                case 5:
+                case 6:
+                case 7:
+                    PointsToSpend += 3;
+                    break;
+                case 8:
+                case 9:
+                case 10:
+                    PointsToSpend += 4;
+                    break;
+                default:
+                    break;
+            }            
 			Level += 1;
-
-			//Next level up
-			ExperiencePointsNeeded = (int)(ExperiencePointsNeeded * 1.5 );
-
+            //Next level up
+            switch (Level)
+            {
+                case 2:
+                case 3:
+                case 4:
+                    ExperiencePointsNeeded = (int)(ExperiencePointsNeeded * 1.5);
+                    break;
+                case 5:
+                case 6:
+                case 7:
+                    ExperiencePointsNeeded = (int)(ExperiencePointsNeeded * 1.8);
+                    break;
+                case 8:
+                case 9:
+                case 10:
+                    ExperiencePointsNeeded = (int)(ExperiencePointsNeeded * 2);
+                    break;
+                default:
+                    break;
+            }          
 		}
 	}
 }
