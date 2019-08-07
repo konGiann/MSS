@@ -1,45 +1,58 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpawnManager : MonoBehaviour {
+public class SpawnManager : MonoBehaviour
+{
 
-	public static SpawnManager _instance = null;
+    public static SpawnManager _instance = null;
 
-	public Transform[] SpawnLocation;
+    public Transform[] SpawnLocation;
 
-	public GameObject[] LowLevelEnemies;
+    public GameObject[] LowLevelEnemies;
 
-	public float SpawnTime;
+    float SpawnRate;
+    
+    int howManySpawned;
 
-	int randomLaneIndex;
-	int randomEnemy;
+    public bool SpawnEnded;
 
-	private IEnumerator _startwave;
+    int randomLaneIndex;
+    int randomEnemy;
 
-	void Awake () 
-	{
-		DontDestroyOnLoad (gameObject);	
+    private IEnumerator _startwave;
 
-		if (_instance == null)
-			_instance = this;
-		else if (_instance != null)
-			Destroy (gameObject);
-		
-	}
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
 
-	#region Spawner: Level One Enemies
+        if (_instance == null)
+            _instance = this;
+        else if (_instance != null)
+            Destroy(gameObject);
 
+    }
 
-	public void StartWaveLowLevel()
-	{
-		randomLaneIndex = Random.Range (0, LowLevelEnemies.Length -1 );
-		randomEnemy = Random.Range (0, LowLevelEnemies.Length - 1);
+    #region Spawner: Level One Enemies
+    public void StartWaveLowLevel()
+    {        
+        SpawnRate += Time.deltaTime;
+        
 
-		Instantiate (LowLevelEnemies[randomEnemy], new Vector3(SpawnLocation[randomLaneIndex].position.x, 
-			SpawnLocation[randomLaneIndex].position.y - 0.05f, 
-			SpawnLocation[randomLaneIndex].position.z ), Quaternion.identity);
-		SoundManager._instance.CreatureSpawned.Play ();
-	}
+        if (SpawnRate >= 5 && !SpawnEnded)
+        {
+            randomLaneIndex = Random.Range(0, LowLevelEnemies.Length - 1);
+            randomEnemy = Random.Range(0, LowLevelEnemies.Length - 1);
 
-	#endregion
+            Instantiate(LowLevelEnemies[randomEnemy], new Vector3(SpawnLocation[randomLaneIndex].position.x,
+                SpawnLocation[randomLaneIndex].position.y - 0.05f,
+                SpawnLocation[randomLaneIndex].position.z), Quaternion.identity);
+            SoundManager._instance.CreatureSpawned.Play();
+
+            SpawnRate = 0;
+            howManySpawned += 1;
+            if (howManySpawned == 3)
+                SpawnEnded = true;
+        }
+    }
+    #endregion
 }

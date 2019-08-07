@@ -29,7 +29,7 @@ public class HighlightFloor : MonoBehaviour
 
 	void Update()
 	{
-		distance = Vector3.Distance (this.transform.position, player.transform.position);
+		distance = Vector3.Distance (transform.position, player.transform.position);
      
 	}
 
@@ -37,13 +37,13 @@ public class HighlightFloor : MonoBehaviour
 	// To the desired distance we already set. If it is, the we set the floor's tag to VALID and we can 
 	// run the method to instantiate the prefab we have chose throught numeric keys.
 	void OnMouseOver()
-	{
-		if(Mathf.Round (distance) <= ValidFloorDistance && this.tag != "FloorOccupied")
+	{        
+		if(distance <= ValidFloorDistance && this.tag != "FloorOccupied")
 		{
 			sr.color = Color.green; // Change color to green for EFFECT
 			tag = "FloorValid"; // Change Tag
 
-			NewSkillBar._instance.PlaceItem (gameObject);
+			NewSkillBar._instance.PlaceItem (gameObject);            
 		}		
 	}
 
@@ -53,7 +53,7 @@ public class HighlightFloor : MonoBehaviour
 		if(this.tag != "FloorOccupied")
 			this.tag = "Floor";
 
-        Debug.Log("TAG: " + tag + "DISTANCE: " + distance);        
+        // Debug.Log("TAG: " + tag + "DISTANCE: " + distance);        
     }
 
 	void OnTriggerStay2D(Collider2D item)

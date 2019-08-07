@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour {
 				break;
 
 			case GameState.SPAWNWAVE:
-				StartFirstWave ();
+				StartWave ();
 				break;
 
 			case GameState.FIGHT: 
@@ -80,29 +80,36 @@ public class GameManager : MonoBehaviour {
 		AddedToBestiary ();
 	}
 
-	void StartFirstWave()
+	void StartWave()
 	{	
 		// 3..2..1..GO!
 		waveCountDown -= Time.deltaTime;
+        SpawnManager._instance.StartWaveLowLevel();
 
-		// SpawnRate is the amount of seconds in beween each spawning
-		spawnRate += Time.deltaTime;
+        // If we reach the amount of creatures spawned, stop spawning and go to Fight state
+        if (SpawnManager._instance.SpawnEnded)
+        {
+            currentState = GameState.FIGHT;
+        }
 
-		// Start wave and iterate for every spawnRate(seconds) defined
-		if(spawnRate > 5)
-		{
-			SpawnManager._instance.StartWaveLowLevel ();
-			howManySpawned += 1;
-			spawnRate = 0;
-		}
+        //// SpawnRate is the amount of seconds in beween each spawning
+        //spawnRate += Time.deltaTime;
 
-		// If we reach the amount of creatures spawned, stop spawning and go to Fight state
-		if (howManySpawned == 3) 
-		{
-			currentState = GameState.FIGHT;
-		}
+        //// Start wave and iterate for every spawnRate(seconds) defined
+        //if(spawnRate > 5)
+        //{
+        //	SpawnManager._instance.StartWaveLowLevel ();
+        //	howManySpawned += 1;
+        //	spawnRate = 0;
+        //}
 
-	}
+        //// If we reach the amount of creatures spawned, stop spawning and go to Fight state
+        //if (howManySpawned == 3) 
+        //{
+        //	currentState = GameState.FIGHT;
+        //}
+
+    }
 
 	void FightWave()
 	{

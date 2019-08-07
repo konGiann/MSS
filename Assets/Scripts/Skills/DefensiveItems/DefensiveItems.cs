@@ -58,14 +58,12 @@ public class DefensiveItems : MonoBehaviour
 			creatureScript.CurrentHitPoints -= ItemDamagePerSec * Time.smoothDeltaTime;
 
 
-			creatureScript.HealthBar.transform.localScale = new Vector3 (calc_health, 1, 
-				1);
+			creatureScript.HealthBar.transform.localScale = new Vector3 (calc_health, 1, 1);
 		}
 
 		if(destroyed == true)
-		{
-			var floor = GameObject.FindWithTag ("FloorOccupied");
-			floor.tag = "Floor";
+		{		
+            Destroy(this);
 		}
 	}
 

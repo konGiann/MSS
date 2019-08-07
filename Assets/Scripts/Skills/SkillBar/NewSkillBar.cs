@@ -90,10 +90,10 @@ public class NewSkillBar : MonoBehaviour {
 
 	}
 
-	public void PlaceItem(GameObject o)
+	public void PlaceItem(GameObject gameObject)
 	{
 
-        if (o != null)
+        if (gameObject != null)
         {
             try
             {
@@ -137,7 +137,7 @@ public class NewSkillBar : MonoBehaviour {
                         slot.defensiveItem.NumberAvailable -= 1;
 
                         // Change the floor pref tag so we cannot place any other object on top
-                        o.tag = "FloorOccupied";
+                        gameObject.tag = "FloorOccupied";
                     }
                 }
             }

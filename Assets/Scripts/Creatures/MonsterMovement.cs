@@ -18,4 +18,9 @@ public class MonsterMovement : MonoBehaviour {
 	{
 		rb.velocity = new Vector2 (0.1f * speed, 0);
 	}
+
+    //void OnTriggerEnter2D(Collider2D floor)
+    //{
+    //    floor.tag = "FloorOccupied";
+    //}
 }

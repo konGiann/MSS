@@ -74,7 +74,7 @@ public class ICreature : MonoBehaviour
 			gameObject.GetComponent <MonsterMovement> ().speed = originalSpeed;
 			break;
 		case CreatureState.SLOWED:
-			Debug.Log ("I AM SLOWED :(");
+			// Debug.Log ("I AM SLOWED :(");
 			break;
 		default:
 			break;
