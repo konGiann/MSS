@@ -23,9 +23,7 @@ public class GameManager : MonoBehaviour {
 
 	float spawnRate;
 
-	public float waveCountDown;
-
-	int howManySpawned;
+	public float waveCountDown;	
 
 
 	public void Test()
@@ -63,15 +61,18 @@ public class GameManager : MonoBehaviour {
 		{
 			case GameState.PREPARATION:
 				PreparationState ();
+                Debug.Log(currentState);
 				break;
 
 			case GameState.SPAWNWAVE:
 				StartWave ();
-				break;
+                Debug.Log(currentState);
+                break;
 
 			case GameState.FIGHT: 
 				FightWave ();
-				break;
+                Debug.Log(currentState);
+                break;
 
 			default:
 				break;
@@ -81,9 +82,11 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void StartWave()
-	{	
-		// 3..2..1..GO!
-		waveCountDown -= Time.deltaTime;
+	{
+        SpawnManager._instance.SpawnEnded = false;
+
+        // 3..2..1..GO!
+        waveCountDown -= Time.deltaTime;
         SpawnManager._instance.StartWaveLowLevel();
 
         // If we reach the amount of creatures spawned, stop spawning and go to Fight state
@@ -115,10 +118,7 @@ public class GameManager : MonoBehaviour {
 	{
 		// If all creatures are killed, end wave and go to preparation state
 		if(creaturesInScene.Length == 0)
-			currentState = GameState.PREPARATION;
-
-		// Reset how many spawned for the next iteration
-		howManySpawned = 0;
+			currentState = GameState.PREPARATION;				
 	}
 
 	void PreparationState()
