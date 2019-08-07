@@ -50,8 +50,12 @@ public class SpawnManager : MonoBehaviour
 
             SpawnRate = 0;
             howManySpawned += 1;
-            if (howManySpawned == 3)
+            if (howManySpawned >= 3)
+            {
                 SpawnEnded = true;
+                howManySpawned = 0;
+            }
+                
         }
     }
     #endregion
