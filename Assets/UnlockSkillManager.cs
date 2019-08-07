@@ -34,7 +34,7 @@ public class UnlockSkillManager : MonoBehaviour
         {
             var skill = item.GetComponent<DefensiveItems>();
 
-            if (GameManager._instance.player.Level == skill.LevelRequired && skill.IsUnlocked == false)
+            if (GameManager._instance.player.Level >= skill.LevelRequired && skill.IsUnlocked == false && GameManager._instance.currentState == GameManager.GameState.PREPARATION)
             {
 
                 OpenPanel();

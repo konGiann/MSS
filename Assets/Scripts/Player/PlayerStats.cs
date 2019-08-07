@@ -55,6 +55,7 @@ public class PlayerStats
 	{
 		if (CurrentExperiencePoints >= ExperiencePointsNeeded)
 		{
+            Level += 1;
             switch (Level)
             {
                 case 2:
@@ -75,7 +76,7 @@ public class PlayerStats
                 default:
                     break;
             }            
-			Level += 1;
+			
             //Next level up
             switch (Level)
             {
