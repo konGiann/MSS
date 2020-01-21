@@ -67,8 +67,31 @@ public class DefensiveItems : MonoBehaviour
 		}
 	}
 
-	// Bonus item damage when creatures entes radius aka IBD  (applied ONCE)
-	void OnTriggerEnter2D(Collider2D creature)
+    // Damage while inside radius (applied every second)
+    void OnTriggerStay2D(CircleCollider2D creature)
+    {
+        // Get script component from enemy so we can interact with its STATS
+        creatureScript = creature.gameObject.GetComponent<ICreature>();
+
+        // Apply damage
+        if (creature.gameObject.tag == "Enemy")
+
+        {
+            float calc_health = creatureScript.CurrentHitPoints / creatureScript.MaximumHitPoints;
+            creatureScript.CurrentHitPoints -= ItemDamagePerSec * Time.smoothDeltaTime;
+
+
+            creatureScript.HealthBar.transform.localScale = new Vector3(calc_health, 1, 1);
+        }
+
+        if (destroyed == true)
+        {
+            Destroy(this);
+        }
+    }
+
+    // Bonus item damage when creatures entes radius aka IBD  (applied ONCE)
+    void OnTriggerEnter2D(Collider2D creature)
 	{
 		// Get script component from enemy so we can interact with its STATS
 		creatureScript = creature.gameObject.GetComponent <ICreature> ();
