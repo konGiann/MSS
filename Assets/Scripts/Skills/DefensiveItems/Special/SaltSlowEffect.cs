@@ -24,14 +24,11 @@ public class SaltSlowEffect : MonoBehaviour
 
 
         if (creature.tag == "Enemy")
-        {
-
+        {            
             creatureMovement.speed -= creatureMovement.speed * slowEffect.SlowEffect;
             creatureStats.currentState = ICreature.CreatureState.SLOWED;
 
             Debug.Log("SLOWED SPEED: " + creatureMovement.speed);
-
-
         }
     }
 

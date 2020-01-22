@@ -61,17 +61,17 @@ public class GameManager : MonoBehaviour {
 		{
 			case GameState.PREPARATION:
 				PreparationState ();
-                Debug.Log(currentState);
+                // Debug.Log(currentState);
 				break;
 
 			case GameState.SPAWNWAVE:
 				StartWave ();
-                Debug.Log(currentState);
+                // Debug.Log(currentState);
                 break;
 
 			case GameState.FIGHT: 
 				FightWave ();
-                Debug.Log(currentState);
+                // Debug.Log(currentState);
                 break;
 
 			default:

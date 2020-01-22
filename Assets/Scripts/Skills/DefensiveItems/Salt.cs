@@ -15,7 +15,7 @@
 		ItemDamagePerSec = 2.3f;
 		AttackUpgradeCost = 2;
 		Description = "Just simple salt. Moslty averts lesser deamons from passing, or slows down higher daemons";
-		SlowEffect = 0.6f;
+		SlowEffect = 0.2f;
 	}
 
 
