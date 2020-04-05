@@ -13,6 +13,8 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
+Conflicted/
+ConvertedForUnity/
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
